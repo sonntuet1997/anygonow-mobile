@@ -143,7 +143,7 @@ Container inputPassword(
 Container inputRegular(
   BuildContext context, {
   required String hintText,
-  // required TextEditingController textEditingController,
+  required TextEditingController textEditingController,
   // required Function onChange,
 }) {
   return Container(
@@ -160,8 +160,8 @@ Container inputRegular(
       children: [
         Expanded(
           child: TextFormField(
-            // controller: textEditingController,
-            // style: TextStyle(fontSize: getWidth(14)),
+            controller: textEditingController,
+            style: TextStyle(fontSize: getWidth(14)),
             // onChanged: (e) {
             //   onChange();
             // },
