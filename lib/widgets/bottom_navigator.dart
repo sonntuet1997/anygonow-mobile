@@ -128,7 +128,7 @@ Container bottomNavigator() {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              "assets/images/user.svg",
+                              "assets/icons/user.svg",
                               width: getWidth(24),
                               color: globalController.currentPage.value == 1
                                   ? Color(0xFF61B3FF)
@@ -136,7 +136,7 @@ Container bottomNavigator() {
                             ),
                             FittedBox(
                               child: Text(
-                                "user".tr,
+                                "Profile",
                                 style: TextStyle(
                                     fontSize: getWidth(12),
                                     color:
