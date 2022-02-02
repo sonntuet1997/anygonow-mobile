@@ -29,19 +29,23 @@ class ResetPasswordScreen extends StatelessWidget {
             SizedBox(
               height: getHeight(16),
             ),
-            inputPassword(
+            Obx(() => inputPassword(
               context,
               resetPasswordController.password,
               "New password",
-            ),
+              resetPasswordController.isHidePassword.value,
+              resetPasswordController.changeHidePassword,
+            )),
             SizedBox(
               height: getHeight(12),
             ),
-            inputPassword(
+            Obx(() => inputPassword(
               context,
               resetPasswordController.confirmPassword,
               "Confirm new password",
-            ),
+              resetPasswordController.isHideCfPassword.value,
+              resetPasswordController.changeHideCfPassword,
+            )),
             SizedBox(
               height: getHeight(12),
             ),
