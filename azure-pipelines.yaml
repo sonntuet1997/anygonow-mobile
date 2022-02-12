@@ -7,9 +7,6 @@ trigger:
     include:
     - dev
   batch: true
-  
-pool:
-  name: 'Builder'
 
 variables:
   GIT_PAT: $(gitPat)
@@ -78,7 +75,7 @@ jobs:
       mode: 'auto'
       channel: 'stable'
       version: 'latest'
-      
+
   - task: CmdLine@2
     inputs:
       script: 'printf "SERVER_URL=%s\nUPDATE_VERSION_URL=%s\nUPDATE_VERSION_API=%s\n" "$SERVER_URL" "$UPDATE_VERSION_URL"  "$UPDATE_VERSION_API" > .env'
