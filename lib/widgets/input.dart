@@ -209,35 +209,35 @@ Container inputSearch(
     ),
     child: Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                focusNode: _focusNode,
-                controller: textEditingController,
-                style: TextStyle(fontSize: getWidth(12)),
-                onEditingComplete: () {
-                  FocusScope.of(context).unfocus();
-                  onSearch();
-                },
-                decoration: InputDecoration(
-                  isCollapsed: true,
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  hintText: hintText,
-                  contentPadding: EdgeInsets.only(
-                    right: getWidth(16),
-                  ),
-                  labelStyle: TextStyle(
-                      color: Color(0xFF878C92), fontSize: getWidth(16)),
-                ),
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     Expanded(
+        //       child: TextFormField(
+        //         focusNode: _focusNode,
+        //         controller: textEditingController,
+        //         style: TextStyle(fontSize: getWidth(12)),
+        //         onEditingComplete: () {
+        //           FocusScope.of(context).unfocus();
+        //           onSearch();
+        //         },
+        //         decoration: InputDecoration(
+        //           isCollapsed: true,
+        //           border: InputBorder.none,
+        //           focusedBorder: InputBorder.none,
+        //           enabledBorder: InputBorder.none,
+        //           errorBorder: InputBorder.none,
+        //           disabledBorder: InputBorder.none,
+        //           hintText: hintText,
+        //           contentPadding: EdgeInsets.only(
+        //             right: getWidth(16),
+        //           ),
+        //           labelStyle: TextStyle(
+        //               color: Color(0xFF878C92), fontSize: getWidth(16)),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
         Row(
           children: [
             Expanded(
@@ -245,6 +245,34 @@ Container inputSearch(
                 key: _autocompleteKey,
                 focusNode: _focusNode,
                 textEditingController: textEditingController,
+                fieldViewBuilder: (BuildContext context,
+                    TextEditingController textEditingController,
+                    FocusNode focusNode,
+                    VoidCallback onFieldSubmitted) {
+                  return TextFormField(
+                    focusNode: _focusNode,
+                    controller: textEditingController,
+                    style: TextStyle(fontSize: getWidth(12)),
+                    onEditingComplete: () {
+                      FocusScope.of(context).unfocus();
+                      onSearch();
+                    },
+                    decoration: InputDecoration(
+                      isCollapsed: true,
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      hintText: hintText,
+                      contentPadding: EdgeInsets.only(
+                        right: getWidth(16),
+                      ),
+                      labelStyle: TextStyle(
+                          color: Color(0xFF878C92), fontSize: getWidth(16)),
+                    ),
+                  );
+                },
                 optionsViewBuilder: (BuildContext context,
                     AutocompleteOnSelected<String> onSelected,
                     Iterable<String> options) {
