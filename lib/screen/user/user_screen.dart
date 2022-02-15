@@ -6,6 +6,7 @@ import 'package:untitled/controller/account/account_controller.dart';
 import 'package:untitled/controller/global_controller.dart';
 import 'package:untitled/screen/account/account_screen.dart';
 import 'package:untitled/screen/change_password/change_password_screen.dart';
+import 'package:untitled/screen/login/login_screen.dart';
 import 'package:untitled/utils/config.dart';
 import 'package:untitled/widgets/bounce_button.dart';
 
@@ -33,9 +34,7 @@ class UserScreen extends StatelessWidget {
                         height: getHeight(36),
                       ),
                       GestureDetector(
-                        onTap: () async {
-
-                        },
+                        onTap: () async {},
                         child: Container(
                           color: Colors.white,
                           child: Row(
@@ -256,14 +255,19 @@ class UserScreen extends StatelessWidget {
                                     SizedBox(
                                       width: getWidth(12),
                                     ),
-                                    Container(
-                                      width: getWidth(200),
-                                      child: Text(
-                                        "Log out",
-                                        style:
-                                            TextStyle(fontSize: getWidth(16)),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.offAll(() => LoginScreen());
+                                      },
+                                      child: Container(
+                                        width: getWidth(200),
+                                        child: Text(
+                                          "Log out",
+                                          style:
+                                              TextStyle(fontSize: getWidth(16)),
+                                        ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ],
