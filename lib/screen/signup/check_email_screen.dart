@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/controller/forgot_password/forgot_password_controller.dart';
+import 'package:untitled/controller/account/otp_controller.dart';
+import 'package:untitled/controller/signup/signup_controller.dart';
+import 'package:untitled/screen/signup/verified-page.dart';
+import 'package:untitled/utils/common-fumction.dart';
 import 'package:untitled/utils/config.dart';
 import 'package:untitled/widgets/app_name.dart';
 import 'package:untitled/widgets/bounce_button.dart';
-import 'package:untitled/widgets/input.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 class CheckEmailScreen extends StatelessWidget {
+  SignupController signupController = Get.put(SignupController());
+  OTPController otpController = Get.put(OTPController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +67,7 @@ class CheckEmailScreen extends StatelessWidget {
               height: getHeight(16),
             ),
             Text(
-              "Confirmation link has been sent to email address ******291@gmail.com.",
+              "Confirmation link has been sent to email address ${convertLongString(string: signupController.email.text, firstLength: 4, lastLength: 12)}",
               style: TextStyle(
                 fontSize: getWidth(13),
                 height: getHeight(2),
@@ -87,23 +92,48 @@ class CheckEmailScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: getWidth(13),
                 height: getHeight(2),
+                color: const Color(0xFF333333),
               ),
               textAlign: TextAlign.center,
             ),
             SizedBox(
               height: getHeight(12),
             ),
-            Bouncing(
-                child: const Text(
-                  "Resend the link.",
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF3864FF),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                onPress: () => {}),
+            Countdown(
+              controller: otpController.countdownController,
+              seconds: 60,
+              build: (BuildContext context, double time) {
+                if (time > 0) {
+                  return Text(
+                    time.toInt().toString(),
+                    style: TextStyle(
+                      color: const Color(0xFF878C92),
+                      fontSize: getWidth(17),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  );
+                } else {
+                  return Bouncing(
+                    child: Text(
+                      "Resend the link",
+                      style: TextStyle(
+                        color: const Color(0xFF3864FF),
+                        decoration: TextDecoration.underline,
+                        fontSize: getWidth(17),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onPress: () async {
+                      // var isRequest = await signupController.signup();
+                      // if (isRequest) {
+                      otpController.countdownController.restart();
+                      // }
+                    },
+                  );
+                }
+              },
+              interval: Duration(seconds: 1),
+            ),
           ],
         ),
       ),
@@ -138,7 +168,9 @@ Container confirmButtonContainer(BuildContext context) {
                 color: Color(0xffff511a),
               ),
             ),
-            onPressed: () async {},
+            onPressed: () async {
+              Get.to(() => VerifiedPage());
+            },
             child: Text("continue".tr,
                 style: const TextStyle(color: Colors.white)),
           ),
