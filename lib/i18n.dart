@@ -18,7 +18,11 @@ class Messages extends Translations {
           "signin": "Sign in",
           "invalid_username": "Your email address or phone number is invalid !",
           "invalid_password": "Your password is invalid !",
-          "error_server": "Server is not working !"
+          "error_server": "Server is not working !",
+          "close": "Close",
+          "confirm": "Confirm",
+          "success_add_payment": "Successfully added new payment method !",
+          "common_success": "Successfully !"
         },
       };
 }
