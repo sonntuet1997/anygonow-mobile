@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:untitled/controller/global_controller.dart';
 import 'package:untitled/i18n.dart';
@@ -9,6 +10,8 @@ import 'package:untitled/screen/login/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = "pk_test_51KQyIYHKYRxtUDcpc8lKY260HdU59NP0SkXg4zOu18S4lbLAH3uREkrR9KNpUp5HICQwZm3utRrwOHTVbQknue3A00jFmfMeSj";
   await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
