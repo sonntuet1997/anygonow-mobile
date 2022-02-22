@@ -7,11 +7,10 @@ import 'package:untitled/utils/config.dart';
 import 'package:untitled/widgets/input.dart';
 import 'package:untitled/widgets/app_name.dart';
 
-class SignupScreen extends StatelessWidget {
-  SignupController signupController = Get.put(SignupController());
-
+class SignupHandymanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SignupController signupController = Get.put(SignupController());
     return Scaffold(
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: Padding(
@@ -30,7 +29,7 @@ class SignupScreen extends StatelessWidget {
               height: getHeight(24),
             ),
             Text(
-              "Sign up",
+              "Homeowner - Sign up",
               style: TextStyle(
                 fontSize: getWidth(20),
               ),
@@ -57,15 +56,6 @@ class SignupScreen extends StatelessWidget {
             SizedBox(
               height: getHeight(12),
             ),
-            inputRegular(
-              context,
-              label: "zipcode".tr,
-              hintText: "Enter your zipcode",
-              textEditingController: signupController.zipCode,
-            ),
-            SizedBox(
-              height: getHeight(12),
-            ),
             Obx(() => inputPassword(
                   context,
                   label: "password".tr,
@@ -86,8 +76,45 @@ class SignupScreen extends StatelessWidget {
                   changeHide: signupController.changeHideCfPassword,
                 )),
             SizedBox(
-              height: getHeight(15),
+              height: getHeight(12),
             ),
+            Row(
+              children: [
+                Obx(
+                  () => Checkbox(
+                      value: signupController.isAgree.value,
+                      onChanged: (bool? value) {
+                        signupController.isAgree.value = value ?? false;
+                      }),
+                ),
+                Text(
+                  "I agree to the ",
+                  style: TextStyle(
+                      fontSize: getWidth(14), fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  "Term of Use",
+                  style: TextStyle(
+                      fontSize: getWidth(14),
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF3864FF),
+                      decoration: TextDecoration.underline),
+                ),
+                Text(
+                  " and ",
+                  style: TextStyle(
+                      fontSize: getWidth(14), fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  "Privacy Policy",
+                  style: TextStyle(
+                      fontSize: getWidth(14),
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF3864FF),
+                      decoration: TextDecoration.underline),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -126,14 +153,15 @@ Container confirmButtonContainer(
             onPressed: () async {
               if (signupController.email.text != "" &&
                   signupController.phoneNumber.text != "" &&
-                  signupController.zipCode.text != "" &&
                   signupController.password.text != "" &&
+                  signupController.isAgree.value == true &&
                   signupController.confirmPassword.text != "") {
                 var result = await signupController.signup();
                 Get.to(() => CheckEmailScreen());
               }
             },
-            child: Text("continue".tr, style: const TextStyle(color: Colors.white)),
+            child: Text("continue".tr,
+                style: const TextStyle(color: Colors.white)),
           ),
         ),
         SizedBox(
@@ -147,7 +175,7 @@ Container confirmButtonContainer(
               ),
             ),
             onPressed: () {
-              Get.to(() => LoginScreen());
+              Get.offAll(() => LoginScreen());
             },
             child: const Text(
               "Already have account? Back to Sign-in",
