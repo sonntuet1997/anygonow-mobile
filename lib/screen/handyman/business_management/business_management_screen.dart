@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/controller/handyman/business_management/business_management_controller.dart';
 import 'package:untitled/controller/handyman/contact_info/contact_info_controller.dart';
+import 'package:untitled/main.dart';
 import 'package:untitled/utils/config.dart';
 import 'package:untitled/widgets/app_bar.dart';
 import 'package:untitled/widgets/bounce_button.dart';
@@ -267,7 +268,7 @@ class BusinessManagementScreen extends StatelessWidget {
                           ),
                           Obx(() => contactInfoController.isEditing.value
                               ? getDropDown(
-                                  USStates.getAllNames(),
+                                  globalController.states.map((e) => e.name ?? "").toList(),
                                   (String value) => {
                                     contactInfoController.state.text = value
                                   },
