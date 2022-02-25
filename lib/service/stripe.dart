@@ -34,7 +34,7 @@ class StripeService {
           const PaymentMethodParams.card(billingDetails: billingDetails));
 
       PaymentMethodParams params = PaymentMethodParams.cardFromMethodId(
-          paymentMethodId: paymentMethod.id, cvc: "424");
+          paymentMethodId: paymentMethod.id, cvc: _card.cvc);
 
       SetupIntent confirmPayment = await Stripe.instance
           .confirmSetupIntent(json["data"]["clientSecret"], params);

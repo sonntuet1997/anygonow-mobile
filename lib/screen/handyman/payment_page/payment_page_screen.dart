@@ -4,6 +4,7 @@ import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:untitled/controller/handyman/payment_method/payment_method_controller.dart';
 import 'package:untitled/screen/handyman/payment_page/add_payment_screen.dart';
 import 'package:untitled/utils/config.dart';
+import 'package:untitled/widgets/dialog.dart';
 
 class PaymentPageScreen extends StatelessWidget {
   @override
@@ -36,15 +37,14 @@ class PaymentPageScreen extends StatelessWidget {
         () => Container(
           padding: EdgeInsets.all(getWidth(23)),
           child: paymentController.paymentMethod["paymentMethodId"] != null
-              ? ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
+              ? Column(
+                  children: [
+                    InkWell(
                       onTap: () {},
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: getWidth(14)),
                         child: CreditCardWidget(
-                          cardNumber: "4242424242424242",
+                          cardNumber: "4242 4242 4242 4242",
                           expiryDate: "02/42",
                           cardHolderName: "Trinh Van Thuan",
                           cvvCode: "XXX",
@@ -52,8 +52,19 @@ class PaymentPageScreen extends StatelessWidget {
                           onCreditCardWidgetChange: (CreditCardBrand) {},
                         ),
                       ),
-                    );
-                  },
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        CustomDialog(context, "CONFIRM").show({
+                          "title": "Confirm delete",
+                          "message": "Are you sure to remove this card",
+                          "onConfirm": () {},
+                        });
+                      },
+                      icon: const Icon(Icons.delete_outline),
+                      color: const Color(0xFF454B52),
+                    )
+                  ],
                 )
               : Container(
                   child: Column(
