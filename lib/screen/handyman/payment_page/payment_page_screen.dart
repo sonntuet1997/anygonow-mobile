@@ -58,7 +58,12 @@ class PaymentPageScreen extends StatelessWidget {
                         CustomDialog(context, "CONFIRM").show({
                           "title": "Confirm delete",
                           "message": "Are you sure to remove this card",
-                          "onConfirm": () {},
+                          "onConfirm": () async {
+                            var res = await paymentController.deletePaymentMethods();
+                            if (res != null) {
+                              CustomDialog(context, "SUCCESS").show({"message": "success_delete_payment"});
+                            }
+                          },
                         });
                       },
                       icon: const Icon(Icons.delete_outline),

@@ -6,6 +6,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:untitled/controller/global_controller.dart';
 import 'package:untitled/i18n.dart';
+import 'package:untitled/screen/brand_detail/brand_detail.dart';
 import 'package:untitled/screen/login/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -38,6 +39,6 @@ class MyApp extends StatelessWidget {
   }
 
   Widget home() {
-    return LoginScreen();
+    return BrandDetailScreen();
   }
 }
