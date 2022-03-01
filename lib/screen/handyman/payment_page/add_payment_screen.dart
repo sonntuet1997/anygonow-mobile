@@ -150,6 +150,7 @@ Container confirmButtonContainer(BuildContext context, PaymentController payment
               SetupIntent? paymentMethod = await StripeService.createSetupIntent(_card);
               await StripeService.createNewPayment(paymentMethod);
               CustomDialog(context, "SUCCESS").show({"message": "success_add_payment"});
+              paymentController.getPaymentMethods();
             },
             child: Text("Confirm".tr, style: const TextStyle(color: Colors.white)),
           ),

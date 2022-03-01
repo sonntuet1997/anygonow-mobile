@@ -248,6 +248,7 @@ AlertDialog alertConfirmDialog(context, title, message, onConfirm) {
                       ),
                       onPressed: () async {
                         await onConfirm();
+                        Navigator.of(context).pop();
                       },
                       child: Text(
                         'confirm'.tr,
