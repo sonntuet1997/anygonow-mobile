@@ -61,7 +61,7 @@ class StripeService {
       return json["data"];
     } catch (e, s) {
       print(e);
-      return "";
+      return null;
     }
   }
 

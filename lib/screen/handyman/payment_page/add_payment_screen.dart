@@ -148,9 +148,13 @@ Container confirmButtonContainer(BuildContext context, PaymentController payment
                 _card = _card.copyWith(cvc: paymentController.cardCVV.value);
               }
               SetupIntent? paymentMethod = await StripeService.createSetupIntent(_card);
-              await StripeService.createNewPayment(paymentMethod);
-              CustomDialog(context, "SUCCESS").show({"message": "success_add_payment"});
-              paymentController.getPaymentMethods();
+              var result = await StripeService.createNewPayment(paymentMethod);
+              if (result != null) {
+                CustomDialog(context, "SUCCESS").show({"message": "success_add_payment"});
+                paymentController.getPaymentMethods();
+              } else {
+                CustomDialog(context, "FAILED").show({"message": "failed_add_payment"});
+              }
             },
             child: Text("Confirm".tr, style: const TextStyle(color: Colors.white)),
           ),
