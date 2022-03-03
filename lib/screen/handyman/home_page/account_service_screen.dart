@@ -11,10 +11,10 @@ import 'package:untitled/widgets/layout.dart';
 import 'package:us_states/us_states.dart';
 
 class AccountServiceScreen extends StatelessWidget {
-  AccountController accountController = Get.put(AccountController());
-
   @override
   Widget build(BuildContext context) {
+    AccountController accountController = Get.put(AccountController());
+    accountController.getBusinessInfo();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: Padding(
