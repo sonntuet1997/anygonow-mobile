@@ -310,8 +310,8 @@ AlertDialog alertConfirmDialog(context, title, message, onConfirm) {
                         padding: EdgeInsets.symmetric(vertical: getHeight(12)),
                       ),
                       onPressed: () async {
-                        await onConfirm();
                         Navigator.of(context).pop();
+                        await onConfirm();
                       },
                       child: Text(
                         'confirm'.tr,

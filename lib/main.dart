@@ -9,10 +9,13 @@ import 'package:untitled/i18n.dart';
 import 'package:untitled/screen/brand_detail/brand_detail.dart';
 import 'package:untitled/screen/login/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:untitled/service/stripe.dart';
 
 GlobalController globalController = Get.put(GlobalController());
 
 Future<void> main() async {
+  var publishedKey = await StripeService.getPubKey();
+  Stripe.publishableKey = publishedKey;
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await globalController.getStates();
