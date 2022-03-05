@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/controller/account/account_controller.dart';
 import 'package:untitled/controller/global_controller.dart';
 import 'package:untitled/controller/login/login_controller.dart';
 import 'package:untitled/controller/main/main_screen_controller.dart';
-import 'package:untitled/screen/handyman/home_page/account_contact_screen.dart';
-import 'package:untitled/screen/handyman/home_page/account_service_screen.dart';
 import 'package:untitled/screen/forgot_password/forgot_password_screen.dart';
+import 'package:untitled/screen/handyman/business_management/business_management_screen.dart';
 import 'package:untitled/screen/handyman/home_page/home_page_screen.dart';
 import 'package:untitled/screen/home_page/home_page_screen.dart';
 import 'package:untitled/screen/signup/signup_welcome_screen.dart';
@@ -159,9 +157,11 @@ Container confirmButtonContainer(BuildContext context, LoginPageController contr
                           Get.to(() => HomePageScreen());
                         } else {
                           if (process == 1) {
-                            Get.to(() => AccountServiceScreen());
+                            Get.to(() => BusinessManagementScreen());
+                            AccountController().isBusinessScreen.value = true;
                           } else if (process == 2) {
-                            Get.to(() => AccountContactScreen());
+                            Get.to(() => BusinessManagementScreen());
+                            AccountController().isBusinessScreen.value = false;
                           } else {
                             Get.to(() => HandymanHomePageScreen());
                           }
