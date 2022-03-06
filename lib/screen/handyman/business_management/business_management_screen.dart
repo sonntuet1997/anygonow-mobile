@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/controller/account/account_controller.dart';
+import 'package:untitled/controller/global_controller.dart';
+import 'package:untitled/screen/handyman/home_page/home_page_screen.dart';
 import 'package:untitled/utils/config.dart';
 import 'package:untitled/widgets/app_bar.dart';
 import 'package:untitled/widgets/bounce_button.dart';
@@ -9,12 +12,16 @@ import 'package:untitled/widgets/image.dart';
 import 'package:untitled/widgets/input.dart';
 import 'package:untitled/widgets/layout.dart';
 import 'package:us_states/us_states.dart';
+import 'package:image_picker/image_picker.dart';
 
 class BusinessManagementScreen extends StatelessWidget {
+  File logoFile = File("");
+  File bannerFile = File("");
   @override
   Widget build(BuildContext context) {
     AccountController accountController = Get.put(AccountController());
     accountController.getBusinessInfo();
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: appBar(title: "Manage your business"),
@@ -99,18 +106,39 @@ class BusinessManagementScreen extends StatelessWidget {
                       SizedBox(
                         height: getHeight(10),
                       ),
-                      Obx(() => Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                                child: ClipRRect(
-                              borderRadius: BorderRadius.circular(56),
-                              child: Container(
-                                  width: getHeight(60),
-                                  height: getHeight(60),
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: accountController.logoImage.value != "" ? Colors.blueGrey : Colors.transparent),
-                                  child: getImage(accountController.logoImage.value, width: getWidth(60), height: getHeight(60))),
-                            )),
-                          )),
+                      logoFile.path == "" && accountController.logoImage.value == ""
+                          ? Container(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  XFile? pickedFile = await ImagePicker().pickImage(
+                                    source: ImageSource.gallery,
+                                    maxWidth: 1800,
+                                    maxHeight: 1800,
+                                  );
+                                  if (pickedFile != null) {
+                                    logoFile = File(pickedFile.path);
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.add_a_photo_outlined,
+                                ),
+                              ),
+                            )
+                          : Obx(() => Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                    child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(56),
+                                  child: Container(
+                                      width: getHeight(60),
+                                      height: getHeight(60),
+                                      decoration: BoxDecoration(shape: BoxShape.circle, color: accountController.logoImage.value != "" ? Colors.blueGrey : Colors.transparent),
+                                      child: logoFile.path != "" ? Image.file(
+                                        logoFile,
+                                        fit: BoxFit.cover,
+                                      ) : getImage(accountController.logoImage.value, width: getWidth(60), height: getHeight(60))),
+                                )),
+                              )),
                       SizedBox(
                         height: getHeight(18),
                       ),
@@ -131,19 +159,40 @@ class BusinessManagementScreen extends StatelessWidget {
                       SizedBox(
                         height: getHeight(10),
                       ),
-                      Obx(() => Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                                height: getWidth(56),
-                                width: getWidth(108),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Colors.black,
-                                  ),
+                      bannerFile.path == "" && accountController.bannerImage.value == ""
+                          ? Container(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  XFile? pickedFile = await ImagePicker().pickImage(
+                                    source: ImageSource.gallery,
+                                    maxWidth: 1800,
+                                    maxHeight: 1800,
+                                  );
+                                  if (pickedFile != null) {
+                                    bannerFile = File(pickedFile.path);
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.add_a_photo_outlined,
                                 ),
-                                child: getImage(accountController.bannerImage.value)),
-                          )),
+                              ),
+                            )
+                          : Obx(() => Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                    height: getWidth(56),
+                                    width: getWidth(108),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    child: bannerFile.path != "" ? Image.file(
+                                      bannerFile,
+                                      fit: BoxFit.cover,
+                                    ) : getImage(accountController.bannerImage.value)),
+                              )),
                       SizedBox(
                         height: getHeight(18),
                       ),
@@ -168,7 +217,11 @@ class BusinessManagementScreen extends StatelessWidget {
                       inputRegular(context,
                           hintText: "Description",
                           enabled: accountController.isEditting.value,
-                          textEditingController: accountController.description, maxLines: 6, keyboardType: TextInputType.multiline, height: 120, minLines: 4),
+                          textEditingController: accountController.description,
+                          maxLines: 6,
+                          keyboardType: TextInputType.multiline,
+                          height: 120,
+                          minLines: 4),
                     ],
                   )
                 : Column(
@@ -283,12 +336,20 @@ Container confirmButtonContainer(BuildContext context, AccountController control
                     ),
                     onPressed: () async {
                       if (controller.isEditting.value) {
-                        var result = await controller.editBusinessInfo();
-                        controller.isLoading.value = false;
-                        if (result != null && controller.isBusinessScreen.value) {
-                          controller.isBusinessScreen.value = false;
+                        if (controller.isBusinessScreen.value) {
+                          var result = await controller.editBusinessInfo();
+                          if (result != null) {
+                            controller.isBusinessScreen.value = false;
+                          }
+                        } else {
+                          var result = await controller.editBusinessContact();
+                          if (result != null) {
+                            controller.isBusinessScreen.value = false;
+                            Get.to(() => HandymanHomePageScreen());
+                          }
                         }
                       }
+                      controller.isLoading.value = false;
                       controller.isEditting.value = !controller.isEditting.value;
                     },
                     child: Text(controller.isEditting.value ? "update".tr : "edit".tr, style: const TextStyle(color: Colors.white)),
