@@ -48,8 +48,9 @@ GestureDetector handymanItem({
                 Expanded(
                   flex: 42,
                   child: image != ""
-                      ? Image.network(
+                      ? SvgPicture.network(
                           image,
+                          fit: BoxFit.contain,
                           height: getHeight(120),
                         )
                       : Container(

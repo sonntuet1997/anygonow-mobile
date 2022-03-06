@@ -138,7 +138,8 @@ class UserScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                        },
                         child: Container(
                           color: Colors.white,
                           child: Column(

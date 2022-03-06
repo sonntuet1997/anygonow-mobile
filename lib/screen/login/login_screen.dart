@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/controller/account/account_controller.dart';
 import 'package:untitled/controller/global_controller.dart';
+import 'package:untitled/controller/handyman/my_request/my_request_controller.dart';
 import 'package:untitled/controller/login/login_controller.dart';
 import 'package:untitled/controller/main/main_screen_controller.dart';
 import 'package:untitled/screen/forgot_password/forgot_password_screen.dart';
@@ -163,6 +164,7 @@ Container confirmButtonContainer(BuildContext context, LoginPageController contr
                             Get.to(() => BusinessManagementScreen());
                             AccountController().isBusinessScreen.value = false;
                           } else {
+                            await Get.put(MyRequestController()).getRequests();
                             Get.to(() => HandymanHomePageScreen());
                           }
                         }
