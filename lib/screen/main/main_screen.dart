@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/controller/main/main_screen_controller.dart';
+import 'package:untitled/main.dart';
 import 'package:untitled/screen/main/main_screen_model.dart';
 import 'package:untitled/service/date_format.dart';
 import 'package:untitled/utils/config.dart';
@@ -33,7 +34,7 @@ class MainScreen extends StatelessWidget {
                     left: getWidth(16),
                   ),
                   child: Text(
-                    "Hi Minh, have a good day",
+                    "Hi ${globalController.user.value.username}, have a good day",
                     style: TextStyle(
                       fontSize: getWidth(18),
                       fontWeight: FontWeight.w500,
