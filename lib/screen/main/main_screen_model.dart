@@ -8,6 +8,7 @@ import 'package:untitled/controller/main/main_screen_controller.dart';
 import 'package:untitled/screen/brand_detail/brand_detail.dart';
 import 'package:untitled/utils/config.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:untitled/widgets/image.dart';
 
 MainScreenController mainScreenController = Get.put(MainScreenController());
 
@@ -48,11 +49,7 @@ GestureDetector handymanItem({
                 Expanded(
                   flex: 42,
                   child: image != ""
-                      ? SvgPicture.network(
-                          image,
-                          fit: BoxFit.contain,
-                          height: getHeight(120),
-                        )
+                      ? getImage(image)
                       : Container(
                           height: getHeight(120),
                           color: Colors.grey,
@@ -92,7 +89,7 @@ GestureDetector handymanItem({
                               width: getWidth(12),
                             ),
                             SizedBox(
-                              width: getWidth(44),
+                              width: getWidth(100),
                               child: Text(
                                 title,
                                 style: TextStyle(fontWeight: FontWeight.w500),
