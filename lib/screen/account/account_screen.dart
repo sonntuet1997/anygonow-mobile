@@ -28,7 +28,7 @@ class _AccountScreenState extends State<AccountScreen> {
         GestureDetector(
           onTap: () async {
             if (accountController.isEditting.value) {
-              var result = await accountController.editUserInfo(firstName: accountController.firstName.text, lastName: accountController.lastName.text, avatar: "");
+              var result = await accountController.editUserInfo();
               if (result != null) {
                 accountController.isEditting.value = !accountController.isEditting.value;
               }
@@ -193,12 +193,12 @@ class _AccountScreenState extends State<AccountScreen> {
                         USStates.getAllNames(),
                         (String value) => {accountController.state.text = value},
                       ),
-                      margin: EdgeInsets.only(top: getHeight(18)),
+                      margin: EdgeInsets.only(top: getHeight(22)),
                     )
                   : Container()),
             ]),
             SizedBox(
-              height: getHeight(16),
+              height: getHeight(15),
             ),
             Obx(() => inputRegular(
                   context,
