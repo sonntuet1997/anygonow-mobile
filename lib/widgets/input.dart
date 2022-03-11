@@ -5,6 +5,7 @@ import 'package:untitled/utils/config.dart';
 Container inputPassword(
   BuildContext context, {
   String? label, bool enabled = true,
+      bool required = false,
   required TextEditingController controller,
   required String hintText,
   required bool isHide,
@@ -20,11 +21,17 @@ Container inputPassword(
                   right: getWidth(16),
                 ),
                 width: double.infinity,
-                child: Text(label,
-                    style: TextStyle(
-                        fontSize: getHeight(14),
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500)),
+                child: Row(
+                    children: [
+                      Text(label, style: TextStyle(
+                          fontSize: getHeight(14),
+                          color: enabled ? Colors.black : const Color(0xFF999999),
+                          fontWeight: FontWeight.w500)),
+                      required ? Text("*", style: TextStyle(
+                          color: enabled ? Colors.red : const Color(0xFF999999)
+                      )) : Container()
+                    ]
+                ),
               )
             : Container(),
         label != null
@@ -85,6 +92,7 @@ Container inputRegular(BuildContext context,
     required String hintText,
     required TextEditingController textEditingController,
     bool enabled = true,
+    bool required = false,
     double height = 48,
     double width = 0,
     int maxLines = 1,
@@ -101,11 +109,17 @@ Container inputRegular(BuildContext context,
                   right: getWidth(16),
                 ),
                 width: double.infinity,
-                child: Text(label,
-                    style: TextStyle(
+                child: Row(
+                    children: [
+                      Text(label, style: TextStyle(
                         fontSize: getHeight(14),
                         color: enabled ? Colors.black : const Color(0xFF999999),
                         fontWeight: FontWeight.w500)),
+                      required ? Text("*", style: TextStyle(
+                        color: enabled ? Colors.red : const Color(0xFF999999)
+                      )) : Container()
+                    ]
+                ),
               )
             : Container(),
         label != null

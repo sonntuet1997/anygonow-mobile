@@ -18,11 +18,11 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
   AccountController accountController = Get.put(AccountController());
-
   File logoFile = File("");
 
   @override
   Widget build(BuildContext context) {
+    accountController.getUserInfo();
     return Scaffold(
       appBar: appBar(title: "Profile", actions: [
         GestureDetector(
@@ -110,6 +110,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   hintText: "",
                   textEditingController: accountController.firstName,
                   enabled: accountController.isEditting.value,
+                  required: true,
                 )),
             SizedBox(
               height: getHeight(16),
@@ -120,6 +121,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   hintText: "",
                   textEditingController: accountController.lastName,
                   enabled: accountController.isEditting.value,
+                  required: true,
                 )),
             SizedBox(
               height: getHeight(16),
@@ -130,6 +132,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   hintText: "",
                   textEditingController: accountController.email,
                   enabled: accountController.isEditting.value,
+                  required: true,
                 )),
             SizedBox(
               height: getHeight(16),
@@ -140,6 +143,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   hintText: "",
                   textEditingController: accountController.phoneNumber,
                   enabled: accountController.isEditting.value,
+                  required: true,
                 )),
             SizedBox(
               height: getHeight(24),
@@ -157,6 +161,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   hintText: "",
                   textEditingController: accountController.address1,
                   enabled: accountController.isEditting.value,
+                  required: true,
                 )),
             SizedBox(
               height: getHeight(16),
@@ -172,17 +177,23 @@ class _AccountScreenState extends State<AccountScreen> {
               height: getHeight(16),
             ),
             Stack(children: [
-              inputRegular(
-                context,
-                label: "State",
-                hintText: "",
-                textEditingController: accountController.state,
-                enabled: accountController.isEditting.value,
+              Obx(
+                () => inputRegular(
+                  context,
+                  label: "State",
+                  hintText: "",
+                  textEditingController: accountController.state,
+                  enabled: accountController.isEditting.value,
+                  required: true,
+                ),
               ),
               Obx(() => accountController.isEditting.value
-                  ? getDropDown(
-                      USStates.getAllNames(),
-                      (String value) => {accountController.state.text = value},
+                  ? Container(
+                      child: getDropDown(
+                        USStates.getAllNames(),
+                        (String value) => {accountController.state.text = value},
+                      ),
+                      margin: EdgeInsets.only(top: getHeight(18)),
                     )
                   : Container()),
             ]),
@@ -195,6 +206,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   label: "City",
                   textEditingController: accountController.city,
                   enabled: accountController.isEditting.value,
+                  required: true,
                 )),
             SizedBox(
               height: getHeight(8),
@@ -205,6 +217,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   hintText: "",
                   textEditingController: accountController.zipcode,
                   enabled: accountController.isEditting.value,
+                  required: true,
                 )),
             SizedBox(
               height: getHeight(16),
