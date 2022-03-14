@@ -218,93 +218,10 @@ class _BusinessManagementScreenState extends State<BusinessManagementScreen> {
                         SizedBox(
                           height: getHeight(18),
                         ),
-<<<<<<< HEAD
-                      ),
-                      SizedBox(
-                        height: getHeight(8),
-                      ),
-                      Text(
-                        "This image will be used for featuring your business on the homepage. At least 440x220 recommended.",
-                        style: TextStyle(fontWeight: FontWeight.w500, fontSize: getHeight(10), color: const Color(0xFF696969)),
-                      ),
-                      SizedBox(
-                        height: getHeight(10),
-                      ),
-                      bannerFile.path == "" && accountController.bannerImage.value == ""
-                          ? GestureDetector(
-                              onTap: () async {
-                                if (!accountController.isEditting.value) {
-                                  return;
-                                }
-                                XFile? pickedFile = await ImagePicker().pickImage(
-                                  source: ImageSource.gallery,
-                                  maxWidth: 1800,
-                                  maxHeight: 1800,
-                                );
-                                if (pickedFile != null) {
-                                  setState(() {
-                                    bannerFile = File(pickedFile.path);
-                                  });
-                                }
-                              },
-                              child: const Icon(
-                                Icons.add_a_photo_outlined,
-                              ),
-                            )
-                          : Obx(() => Align(
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                    height: getWidth(56),
-                                    width: getWidth(108),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(color: accountController.logoImage.value != "" ? Colors.blueGrey : Colors.transparent),
-                                    ),
-                                    child: bannerFile.path != ""
-                                        ? Image.file(
-                                            bannerFile,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : getImage(accountController.bannerImage.value)),
-                              )),
-                      SizedBox(
-                        height: getHeight(18),
-                      ),
-                      inputRegular(
-                        context,
-                        hintText: "Business name*",
-                        textEditingController: accountController.business,
-                        enabled: accountController.isEditting.value,
-                      ),
-                      SizedBox(
-                        height: getHeight(18),
-                      ),
-                      Stack(children: [
-                        inputRegular(
-                          context,
-                          hintText: "Professional Category*",
-                          textEditingController: accountController.category,
-                          enabled: accountController.isEditting.value,
-                        ),
-                        Obx(() => accountController.isEditting.value
-                            ? getDropDown(
-                          accountController.categories.map((element) => element.name).toList(),
-                              (String value) => {accountController.category.text = value},
-                        )
-                            : Container()),
-                      ]),
-
-                      SizedBox(
-                        height: getHeight(18),
-                      ),
-                      inputRegular(context,
-                          hintText: "Description",
-=======
                         inputRegular(
                           context,
                           hintText: "Business name*",
                           textEditingController: accountController.business,
->>>>>>> fix: layout
                           enabled: accountController.isEditting.value,
                         ),
                         SizedBox(
