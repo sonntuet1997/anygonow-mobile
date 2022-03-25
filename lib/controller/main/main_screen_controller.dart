@@ -53,6 +53,8 @@ class MainScreenController extends GetxController {
 
   RxBool isKeyboardVisible = false.obs;
 
+  RxBool missingField = false.obs;
+
   late StreamSubscription<bool> keyboardSubscription;
 
   int filter = 0;
@@ -190,8 +192,10 @@ class MainScreenController extends GetxController {
       CustomDio customDio = CustomDio();
       customDio.dio.options.headers["Authorization"] = globalController.user.value.certificate.toString();
       Category? value = categories.firstWhereOrNull((element) => element.name == searchText.text);
-      if (searchText.text == "" || value != null) {
+      missingField.value = false;
+      if (searchText.text != "" && searchZipcode.text != "") {
         categoryId = value != null ? value.id : "";
+
         var response = await customDio.get("/businesses?categoryId=$categoryId&zipcode=${searchZipcode.text}&query=$filter");
         var json = jsonDecode(response.toString());
 
@@ -215,6 +219,7 @@ class MainScreenController extends GetxController {
         }
         return (true);
       } else {
+        missingField.value = true;
         return false;
       }
     } catch (e) {

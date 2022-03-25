@@ -55,7 +55,7 @@ class MainScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            height: getHeight(500),
+            height: getHeight(300),
             color: Color(0xFF07BAAD),
           ),
           Container(
@@ -101,33 +101,6 @@ class MainScreen extends StatelessWidget {
                           ],
                         );
                 }),
-                // Padding(
-                //   padding: EdgeInsets.only(
-                //     left: getWidth(16),
-                //   ),
-                //   child: Text(
-                //     "Hi ${globalController.user.value.username}, have a good day",
-                //     style: TextStyle(
-                //       fontSize: getHeight(18),
-                //       fontWeight: FontWeight.w500,
-                //       color: Colors.white,
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(
-                //     left: getWidth(16),
-                //   ),
-                //   child: Text(
-                //     TimeService.currentTimeDayOfWeek(DateTime.now()),
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: getHeight(12),
-                // ),
                 Row(
                   children: [
                     Obx(() {
@@ -228,8 +201,21 @@ class MainScreen extends StatelessWidget {
                     }),
                   ],
                 ),
+                Obx(
+                  () => Padding(
+                    padding: EdgeInsets.only(
+                      left: getWidth(16),
+                    ),
+                    child: Text(
+                      mainScreenController.missingField.value
+                          ? "Mising search field"
+                          : "",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ),
                 SizedBox(
-                  height: getHeight(24),
+                  height: getHeight(12),
                 ),
                 Obx(() {
                   return mainScreenController.hasSearched.value
@@ -498,9 +484,9 @@ class MainScreen extends StatelessWidget {
                 about: mainScreenController
                         .businesses[index].bussiness["descriptions"] ??
                     "",
-                requested: mainScreenController
-                        .businesses[index].rating["request"] ??
-                    0,
+                requested:
+                    mainScreenController.businesses[index].rating["request"] ??
+                        0,
                 id: mainScreenController.businesses[index].bussiness["id"] ??
                     "",
               );
